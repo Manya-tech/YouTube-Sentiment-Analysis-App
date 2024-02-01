@@ -1,6 +1,7 @@
 import numpy as np
 from tensorflow import keras
 from keras.models import load_model
+#from transformers import pipeline
 from keras_preprocessing.sequence import pad_sequences
 import pickle
 
@@ -37,3 +38,14 @@ def predict_sentiment(text_list):
             sentiments.append("Positive")
 
     return sentiments
+
+
+# def sentiment_analysis(text_list):
+#     sentiment_analysis = pipeline(model="finiteautomata/bertweet-base-sentiment-analysis")
+#     sentiments = []
+#     for text in text_list:
+#         if(len(text)>128):
+#             text = text[:128]
+#         sentiment = sentiment_analysis(text)
+#         sentiments.append(sentiment[0]['label'])
+#     return sentiments
