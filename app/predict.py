@@ -21,11 +21,12 @@ def encode_texts(text_list):
     for text in text_list:
         tokens = keras.preprocessing.text.text_to_word_sequence(text)
         tokens = [tokenizer.word_index[word] if word in tokenizer.word_index else 0 for word in tokens]
-        encode_texts.append(tokens)
+        encoded_texts.append(tokens)
+    return pad_sequences(encoded_texts, maxlen=MAX_LEN, padding='post', value=VOCAB_SIZE-1)
 
 def predict_sentiment(text_list):
     encoded_inputs = encode_texts(text_list)
-    predictions = np.argmax(model.predict(encoded_inputs),axis=-1)
+    predictions = np.argmax(model.predict(encoded_inputs), axis=-1)
     sentiments = []
     for prediction in predictions:
         if prediction == 0:
