@@ -29,16 +29,16 @@ def get_video(video_id):
 
 @app.route("/", methods=["GET","POST"])
 def index():
-    summary = Nonecomments = []
+    summary = None
+    comments = []
     if request.method == "POST":
         video_url  =request.form.get("video_url")
         video_id = video_url.split("v=")[1]
         data = get_video(video_id)
-
         summary = data['summary']
         comments = list(zip(data['comments'], data['predictions']))
 
-    return render_template("index.html", summary = summary, comments=comments)
+    return render_template("index.html", summary = summary, comments = comments)
 
 if __name__=="__main__":
     app.run(debug=True)
