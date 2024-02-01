@@ -3,6 +3,7 @@
 
 <head>
     <title>YouTube Sentiment Analysis</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,10 +24,15 @@
             border: 1px solid #ddd;
             word-wrap: break-word;
         }
+        canvas{
+    margin: 0 auto;
+    }
     </style>
 </head>
 
 <body>
+
+    <p><h1>Hate Love Hue</h1></p>
 
     <form action="/" method="post">
         <input type="text" name="video_url" placeholder="Enter YouTube URL" required>
@@ -34,13 +40,41 @@
     </form>
 
     {% if summary %}
-    <h2>Summary</h2>
-    <p>Positive: {{ summary['positive'] }}</p>
-    <p>Negative: {{ summary['negative'] }}</p>
-    <p>Number of Comments: {{ summary['num_comments'] }}</p>
-    <p>Rating: {{ summary['rating'] }}%</p>
+    <h2>Summary for "{{ summary['name'] }}"</h2>
+    <p><b>Positive:</b> {{ summary['positive'] }}</p>
+    <p><b>Negative:</b> {{ summary['negative'] }}</p>
+    <p><b>Number of Comments:</b> {{ summary['num_comments'] }}</p>
+    <p><b>Rating:</b> {{ summary['rating'] }}%</p>
 
-    <h3>Comments</h3>
+    <canvas id="myChart" width="450" height="200"></canvas>
+    <script>
+        var ctx = document.getElementById("myChart").getContext("2d")
+        const labels = ["positive","negative"];
+        const data = [100,50];
+        var barChart = new Chart(ctx,{
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                {
+                    label: "Sentiment",
+                    backgroundColor: ["3cba9f","#e8c3b9"],
+                    data: data
+                }
+                ]
+            },
+            options: {
+                responsive: false,
+                legend: { display: false },
+                title: {
+                display: true,
+                text: 'Total Confirmed Cases of COVID in May'
+                }
+            }
+        });
+    </script>
+
+    <h3> Top Comments</h3>
     <table>
         <tr>
             <th>Comment</th>
