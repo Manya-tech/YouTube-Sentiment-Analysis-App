@@ -1,0 +1,24 @@
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import pad_sequences
+import pickle
+
+VOCAB_SIZE = 10000
+MAX_LEN = 250
+MODEL_PATH = "sentiment_analysis_model.h5"
+
+#Load the saved model
+model = load_model(MODEL_PATH)
+
+#Load the tokenizer
+with open("tokenizer.pickle","rb") as handle:
+    tokenizer = pickle.load(handle)
+
+
+def encode_texts(text_list):
+    encoded_texts = []
+    for text in text_list:
+        tokens = tf.keras.preprocessing.text.text_to_word_sequence(text)
+        tokens = [tokenizer.word_index[word] if word in tokenizer.word_index else 0 for word in tokens]
+        encode_texts.append(tokens)
