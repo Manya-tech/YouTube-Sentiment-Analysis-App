@@ -1,7 +1,7 @@
 import numpy as np
-import tensorflow as tf
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import pad_sequences
+from tensorflow import keras
+from keras.models import load_model
+from keras_preprocessing.sequence import pad_sequences
 import pickle
 
 VOCAB_SIZE = 10000
@@ -19,7 +19,7 @@ with open("tokenizer.pickle","rb") as handle:
 def encode_texts(text_list):
     encoded_texts = []
     for text in text_list:
-        tokens = tf.keras.preprocessing.text.text_to_word_sequence(text)
+        tokens = keras.preprocessing.text.text_to_word_sequence(text)
         tokens = [tokenizer.word_index[word] if word in tokenizer.word_index else 0 for word in tokens]
         encode_texts.append(tokens)
 
