@@ -1,7 +1,6 @@
-import os
 import googleapiclient.discovery
 import googleapiclient.errors
-
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -39,7 +38,7 @@ def main(video_id):
     youtube = googleapiclient.discovery.build(
         "youtube", "v3", developerKey = api_key)
 
-    comments = get_comments(youtube, part="snippet", videoId=video_id, textFormat="plainText")
+    comments = get_comments(youtube, part="snippet", textFormat="plainText", videoId=video_id)
     name = get_name(youtube, video_id)
     return (name,comments)
 
@@ -47,5 +46,6 @@ def get_video_comments(video_id):
     return main(video_id)
 
 def get_video_info(video_id):
+    print("Get video info",video_id)
     return main(video_id)
 
