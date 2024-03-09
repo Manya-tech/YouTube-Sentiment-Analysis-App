@@ -13,12 +13,13 @@ def get_video(video_id):
     if not video_id:
         return {"error" : "video_id is required"}
     
-    print("Get video",video_id)
+    print("1. Get video",video_id)
     name, comments = get_video_info(video_id)
     predictions  = predict_sentiment(comments)
 
     positive = predictions.count("Positive")  
     negative = predictions.count("Negative")
+    comments_data = list(zip(comments[:10], predictions[:10]))
 
     summary = {
         "name" : name,
@@ -26,26 +27,32 @@ def get_video(video_id):
         "negative" : negative,
         "num_comments" : len(comments),
         "rating" : round((positive/len(comments))*100, 2),
+        "comments_data" : comments_data
         # "data" : [positive,negative],
         # "labels" : ["positive","negative"]
     }
 
-    return {"predictions" : predictions, "comments" : comments, "summary" : summary}
+    return summary
 
 
 @app.route("/", methods=["GET","POST"])
 def index():
-    summary = None
-    comments = []
+    # summary = []
+    # comments = []
+    data = []
     if request.method == "POST":
-        video_url = request.form.get("video_url")
-        video_id = video_url.split("v=")[1]
-        data = get_video(video_id)
-        
-        summary = data['summary']
-        comments = list(zip(data['comments'], data['predictions']))
+        video_urls = request.form.get("video_url")
+        video_urls = video_urls.split(",")
+        print(video_urls)
+        for video_url in video_urls:
+            video_id = video_url.split("v=")[1]
+            res = get_video(video_id)
+            # comments = list(zip(data['comments'], data['predictions']))
+            data.append(res)
+            print("appended")
+            # summary.append(data['summary'])
 
-    return render_template("index.html", summary = summary, comments = comments)
+    return render_template("index.html", data = data)
 
 if __name__=="__main__":
     app.run(debug=True)
