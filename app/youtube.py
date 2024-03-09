@@ -22,6 +22,8 @@ def get_comments(youtube, **kwargs):
         else:
             break
 
+    print("4. get comments done")
+
     return comments
 
 def get_name(youtube, video_id):
@@ -29,12 +31,14 @@ def get_name(youtube, video_id):
         part="snippet",
         id=video_id
     ).execute()
+    print("5. get name done")
     return name['items'][0]['snippet']['title']
 
 def main(video_id):
     # Disable OAuthlib's HTTPs verification when running locally.
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
+    print("3. main")
     youtube = googleapiclient.discovery.build(
         "youtube", "v3", developerKey = api_key)
 
@@ -46,6 +50,6 @@ def get_video_comments(video_id):
     return main(video_id)
 
 def get_video_info(video_id):
-    print("Get video info",video_id)
+    print("2. Get video info",video_id)
     return main(video_id)
 
