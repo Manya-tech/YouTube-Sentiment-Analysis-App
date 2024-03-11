@@ -8,10 +8,6 @@ from keras.models import Sequential, load_model
 from keras.layers import Embedding, Dense, GlobalAveragePooling1D
 from keras.preprocessing.text import Tokenizer
 import pickle
-# import warnings
-# warnings.filterwarnings('ignore')
-
-
 
 #Parameters
 
