@@ -44,12 +44,10 @@ def main(video_id):
 
     comments = get_comments(youtube, part="snippet", textFormat="plainText", videoId=video_id)
     name = get_name(youtube, video_id)
+   
     return (name,comments)
 
-def get_video_comments(video_id):
-    return main(video_id)
 
 def get_video_info(video_id):
-
     return main(video_id)
 
