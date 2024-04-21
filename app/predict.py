@@ -7,13 +7,14 @@ import pickle
 
 VOCAB_SIZE = 10000
 MAX_LEN = 250
-MODEL_PATH = "sentiment_analysis_model.h5"
+MODEL_PATH = "app/sentiment_analysis_model.h5"
+
 
 #Load the saved model
 model = load_model(MODEL_PATH)
 
 #Load the tokenizer
-with open("tokenizer.pickle","rb") as handle:
+with open("app/tokenizer.pickle","rb") as handle:
     tokenizer = pickle.load(handle)
 
 
@@ -38,14 +39,3 @@ def predict_sentiment(text_list):
             sentiments.append("Positive")
 
     return sentiments
-
-
-# def sentiment_analysis(text_list):
-#     sentiment_analysis = pipeline(model="finiteautomata/bertweet-base-sentiment-analysis")
-#     sentiments = []
-#     for text in text_list:
-#         if(len(text)>128):
-#             text = text[:128]
-#         sentiment = sentiment_analysis(text)
-#         sentiments.append(sentiment[0]['label'])
-#     return sentiments
