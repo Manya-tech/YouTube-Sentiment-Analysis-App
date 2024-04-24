@@ -13,10 +13,10 @@ import pickle
 
 VOCAB_SIZE = 10000
 MAX_LEN = 250
-EMBEDDING_DIM = 16
-MODEL_PATH = "sentiment_analysis_model.h5"
+EMBEDDING_DIM = 100
+MODEL_PATH = "app\sentiment_analysis_model.h5"
 
-file_path = "YouTube-Sentiment-Analysis-App\data.csv"
+file_path = "data.csv"
 df = pd.read_csv(file_path, encoding = 'ISO-8859-1')
 df_shuffled = df.sample(frac=1).reset_index(drop=True)
 
@@ -27,11 +27,11 @@ labels = []
 print(df_shuffled.head())
 
 for index, row in df_shuffled.iterrows():
-   
     texts.append(row.iloc[-1])
     label = row.iloc[0]
     labels.append(0 if label == 0 else 1 if label == 2 else 2)
 
+    
 print("done")
 
 texts = np.array(texts)
@@ -43,7 +43,7 @@ tokenizer.fit_on_texts(texts)
 sequences = tokenizer.texts_to_sequences(texts)
 
 #Padding the sequences
-padded_sequences = pad_sequences(sequences, maxlen = MAX_LEN, value=VOCAB_SIZE-1, padding='pre')
+padded_sequences = pad_sequences(sequences, maxlen = MAX_LEN, value=VOCAB_SIZE-1, padding='post')
 print(padded_sequences[0])
 
 #Save the tokenizer to a file
@@ -51,11 +51,10 @@ with open('tokenizer.pickle', 'wb') as handle:
     pickle.dump(tokenizer, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 # Split data into training and test sets 
-train_data = padded_sequences[:-7000]
-test_data = padded_sequences[-3000:]
-train_labels = labels[:-7000]
-test_labels = labels[-3000:]
-
+train_data = padded_sequences[:-100000]
+test_data = padded_sequences[-100000:]
+train_labels = labels[:-100000]
+test_labels = labels[-100000:]
 
 # Check if saved model exists
 if os.path.exists(MODEL_PATH):
@@ -68,7 +67,7 @@ else:
     strategy = tf.distribute.MirroredStrategy()
     print("Number of devices: {}".format(strategy.num_replicas_in_sync))
     with strategy.scope():
-    # Define the model
+        # Define the model
         model = Sequential([
         Embedding(VOCAB_SIZE, EMBEDDING_DIM, input_length=MAX_LEN),
         GlobalAveragePooling1D(),
