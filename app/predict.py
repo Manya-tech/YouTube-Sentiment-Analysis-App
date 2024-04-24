@@ -1,7 +1,6 @@
 import numpy as np
 from tensorflow import keras
 from keras.models import load_model
-#from transformers import pipeline
 from keras_preprocessing.sequence import pad_sequences
 import pickle
 
