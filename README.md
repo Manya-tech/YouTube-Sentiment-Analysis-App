@@ -1,6 +1,6 @@
 # HateLoveHue: YouTube Comment Sentiment Analysis App
 
-Welcome to the HateLoveHue repository! HateLoveHue is a web application designed to analyze the sentiment of YouTube video comments using a deep learning model. It accepts any number of YouTube video links separated by a comma as input and generates a comprehensive report for each video, including the number of positive and negative comments, rating (No. of positive comments/No. of total comments), and the top 10 comments.
+Welcome to the HateLoveHue repository! HateLoveHue is a web application designed to analyze the sentiment of YouTube video comments using a deep learning model. It accepts any number of YouTube video links separated by a comma as input and generates a comprehensive report for each video, including the number of positive and negative comments, rating (No. of positive comments/No. of total comments), and the top 10 comments to enable viewers, content creators and marketers to analyze what viewers are thinking about those video.
 
 ## Table of Contents
 
@@ -13,7 +13,7 @@ Welcome to the HateLoveHue repository! HateLoveHue is a web application designed
 
 ## About HateLoveHue
 
-HateLoveHue bridges the gap between YouTube video creators and their audience by providing valuable insights into the sentiment of viewer comments. It empowers YouTubers, especially those with under 50K subscribers who may not have access to advanced analytics tools, to understand their audience sentiment more effectively. It also allows viewers to quickly see what other viewers think about a video and decide whether they want to see it or not.
+HateLoveHue bridges the gap between YouTube video creators and their audience by providing valuable insights into the sentiment of viewer comments. It empowers YouTubers, especially those with under 50K subscribers who may not have access to advanced analytics tools, to understand their audience sentiment more effectively. It also allows viewers to quickly see what other viewers think about a video and decide whether they want to see it or not. 
 
 ## Features
 
